@@ -85,21 +85,33 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- detect tabstop and shiftwidth automatically
   require 'plugins.gitsigns',
   require 'plugins.whichkey',
+
   require 'plugins.telescope',
-  require 'plugins.telescope-file-browser',
-    -- LSP Setup
-    {
-      -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-      -- used for completion, annotations and signatures of Neovim apis
-      'folke/lazydev.nvim',
-      ft = 'lua',
-      opts = {
-        library = {
-          -- Load luvit types when the `vim.uv` word is found
-          { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-        },
+  -- (function()
+  --   -- load plugins.telescope only once to save on memory
+  --   local telescope = require 'plugins.telescope'
+
+  --   return telescope.setup {
+  --     extensions = {
+  --       ['ui-select'] = telescope.extensions['ui-select'],
+  --       file_browser = telescope.extensions.file_browser,
+  --     },
+  --   }
+  -- end)(),
+
+  -- LSP Setup
+  {
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
       },
     },
+  },
   { 'Bilal2453/luvit-meta', lazy = true },
   require 'plugins.lsp',
   require 'plugins.autoformat',
