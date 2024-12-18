@@ -102,6 +102,10 @@ require('lazy').setup({
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
+
+  -- java plugin should be loaded before LSP
+  require 'plugins.nvim-java'.config,
+
   require 'plugins.lsp',
 
   require 'plugins.typescript-tools',
