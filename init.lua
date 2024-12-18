@@ -87,17 +87,6 @@ require('lazy').setup({
   require 'plugins.whichkey',
 
   require 'plugins.telescope',
-  -- (function()
-  --   -- load plugins.telescope only once to save on memory
-  --   local telescope = require 'plugins.telescope'
-
-  --   return telescope.setup {
-  --     extensions = {
-  --       ['ui-select'] = telescope.extensions['ui-select'],
-  --       file_browser = telescope.extensions.file_browser,
-  --     },
-  --   }
-  -- end)(),
 
   -- LSP Setup
   {
@@ -114,6 +103,9 @@ require('lazy').setup({
   },
   { 'Bilal2453/luvit-meta', lazy = true },
   require 'plugins.lsp',
+
+  require 'plugins.typescript-tools',
+
   require 'plugins.autoformat',
   require 'plugins.autocomplete',
   require 'plugins.todo-comments',
