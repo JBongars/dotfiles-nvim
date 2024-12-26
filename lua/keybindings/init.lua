@@ -41,3 +41,11 @@ vim.keymap.set('n', '{', '{zz', { noremap = true })
 vim.keymap.set('n', 'G', 'Gzz', { noremap = true })
 vim.keymap.set('n', 'gg', 'ggzz', { noremap = true })
 vim.keymap.set('n', '%', '%zz', { noremap = true })
+
+-- Map multiple repeats of H/L/J/K to corresponding window resizes
+for i = 1, 10 do
+  vim.keymap.set('n', '<C-w>' .. string.rep('L', i), 10 * i .. '<C-w><', { silent = true })
+  vim.keymap.set('n', '<C-w>' .. string.rep('H', i), 10 * i .. '<C-w>>', { silent = true })
+  vim.keymap.set('n', '<C-w>' .. string.rep('K', i), 10 * i .. '<C-w>+', { silent = true })
+  vim.keymap.set('n', '<C-w>' .. string.rep('J', i), 10 * i .. '<C-w>-', { silent = true })
+end
