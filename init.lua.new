@@ -1,6 +1,6 @@
 local servers = {
   --  gopls = {},
-  pyright = require 'plugins.lsp.servers.pyright',
+  pyright = {},
   --  rust_analyzer = {},
   lua_ls = require 'plugins.lsp.servers.lua',
 }
@@ -14,33 +14,26 @@ local function after()
   require('plugins.nvim-java').after()
 end
 
-local function load_keymaps(event)
-  local function open_in_new_split(cb)
-    return function()
-      vim.cmd 'vsplit'
-      local win = vim.api.nvim_get_current_win()
-      local result = cb()
-      if not result then
-        vim.api.nvim_set_current_win(win)
-        vim.cmd 'close'
-      end
-    end
+local function open_in_new_split(event, cb)
+  local win = vim.api.nvim_get_current_win()
+  vim.cmd 'vsplit'
+  local result = cb()
+  if not result then
+    vim.api.nvim_set_current_win(win)
+    vim.cmd 'close'
   end
+end
 
+local function load_keymaps(event)
   local map = function(keys, func, desc, mode)
     mode = mode or 'n'
     vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-  end
-
-  local map_with_split = function(keys, func, desc, mode)
-    map(keys, open_in_new_split(func), desc, mode)
   end
 
   -- Jump to the definition of the word under your cursor.
   --  This is where a variable was first declared, or where a function is defined, etc.
   --  To jump back, press <C-t>.
   map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-  -- map('gd', open_in_new_split(require('telescope.builtin').lsp_definitions), '[G]oto [D]efinition')
 
   -- Find references for the word under your cursor.
   map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -52,7 +45,7 @@ local function load_keymaps(event)
   -- Jump to the type of the word under your cursor.
   --  Useful when you're not sure what type a variable is and you want to see
   --  the definition of its *type*, not where it was *defined*.
-  map_with_split('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+  map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 
   -- Fuzzy find all the symbols in your current document.
   --  Symbols are things like variables, functions, types, etc.

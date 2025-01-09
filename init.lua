@@ -65,6 +65,7 @@ require('lazy').setup({
   require('plugins.nvim-java').config,
 
   require 'plugins.lsp',
+  require 'plugins.nvim-ufo',
 
   require 'plugins.typescript-tools',
 

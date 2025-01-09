@@ -49,3 +49,6 @@ for i = 1, 10 do
   vim.keymap.set('n', '<C-w>' .. string.rep('K', i), 10 * i .. '<C-w>+', { silent = true })
   vim.keymap.set('n', '<C-w>' .. string.rep('J', i), 10 * i .. '<C-w>-', { silent = true })
 end
+
+-- Fold logic
+vim.keymap.set('n', 'zC', ':g/{/normal zf%<CR>', { noremap = true, silent = true })
