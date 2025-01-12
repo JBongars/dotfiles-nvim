@@ -15,6 +15,12 @@ return {
           indentscope_color = '',
         },
       },
+      custom_highlights = function(colors)
+        return {
+          LineNr = { fg = colors.overlay1 },
+          RelativeLineNr = { fg = colors.overlay1 },
+        }
+      end,
     }
 
     vim.cmd.colorscheme 'catppuccin-mocha'

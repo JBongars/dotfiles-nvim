@@ -34,6 +34,8 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- center screen everytime I jump vertically
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { noremap = true })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { noremap = true })
+vim.keymap.set('n', 'j', 'jzz', { noremap = true })
+vim.keymap.set('n', 'k', 'kzz', { noremap = true })
 vim.keymap.set('n', 'n', 'nzz', { noremap = true })
 vim.keymap.set('n', 'N', 'Nzz', { noremap = true })
 vim.keymap.set('n', '}', '}zz', { noremap = true })
@@ -41,6 +43,18 @@ vim.keymap.set('n', '{', '{zz', { noremap = true })
 vim.keymap.set('n', 'G', 'Gzz', { noremap = true })
 vim.keymap.set('n', 'gg', 'ggzz', { noremap = true })
 vim.keymap.set('n', '%', '%zz', { noremap = true })
+
+vim.keymap.set('v', '<C-d>', '<C-d>zz', { noremap = true })
+vim.keymap.set('v', '<C-u>', '<C-u>zz', { noremap = true })
+vim.keymap.set('v', 'j', 'jzz', { noremap = true })
+vim.keymap.set('v', 'k', 'kzz', { noremap = true })
+vim.keymap.set('v', 'n', 'nzz', { noremap = true })
+vim.keymap.set('v', 'N', 'Nzz', { noremap = true })
+vim.keymap.set('v', '}', '}zz', { noremap = true })
+vim.keymap.set('v', '{', '{zz', { noremap = true })
+vim.keymap.set('v', 'G', 'Gzz', { noremap = true })
+vim.keymap.set('v', 'gg', 'ggzz', { noremap = true })
+vim.keymap.set('v', '%', '%zz', { noremap = true })
 
 -- Map multiple repeats of H/L/J/K to corresponding window resizes
 for i = 1, 10 do
