@@ -75,13 +75,12 @@ require('lazy').setup({
   require 'plugins.mini',
   require 'plugins.tree-sitter',
   -- require 'plugins.vim-tmux-navigator',
-
   require 'plugins.nvim-ufo',
-  require 'plugins.conform', -- automatically fix linting issues
+  require 'plugins.conform',
 
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps

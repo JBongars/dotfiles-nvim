@@ -27,3 +27,8 @@
 
 - :e ./foo should refer to relative path from current buffer. Not the project directory. foo should refer to project directory
   - Use %:h for current directory
+- gc,gcc comments the current line!
+- Helix ide (https://github.com/helix-editor/helix)
+  - evil helix (https://github.com/usagi-flow/evil-helix)
+  - amp style navigation, keybinding triggers "find" mode where first 2 letters of each word in a buffer is replaced by two characters, typing two characters highlights the word with those charaters
+  - alt-o higlights the parent structure, alt-i walks down the children tree.
