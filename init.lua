@@ -6,7 +6,7 @@ require 'before'
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -46,6 +46,7 @@ require('lazy').setup({
   require 'plugins.scope',
 
   require 'plugins.telescope',
+  require 'plugins.neo-tree',
 
   -- LSP Setup
   {
@@ -64,9 +65,7 @@ require('lazy').setup({
 
   -- java plugin should be loaded before LSP
   require('plugins.nvim-java').config,
-
   require 'plugins.lsp',
-
   require 'plugins.typescript-tools',
 
   require 'plugins.autoformat',
@@ -82,7 +81,6 @@ require('lazy').setup({
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 }, {
   ui = {
