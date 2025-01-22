@@ -1,3 +1,8 @@
+local additional_extensions = {
+  -- unecessary as have neo-tree
+  -- file_browser = require 'plugins.telescope.file_browser',
+}
+
 local function load_keybindings(builtin)
   vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
   vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -32,10 +37,6 @@ local function load_keybindings(builtin)
   vim.keymap.set('n', '<leader>sn', function()
     builtin.find_files { cwd = vim.fn.stdpath 'config' }
   end, { desc = '[S]earch [N]eovim files' })
-
-  local additional_extensions = {
-    file_browser = require 'plugins.telescope.file_browser',
-  }
 end
 
 local dependencies = {
@@ -69,24 +70,19 @@ return {
     local telescope = require 'telescope'
     local builtin = require 'telescope.builtin'
 
-    local additional_extensions = {
-      file_browser = require 'plugins.telescope.file_browser',
-    }
-
     telescope.load_extension 'fzf'
     telescope.load_extension 'ui-select'
 
-    local addtional_extensions_result = {
-      file_browser = additional_extensions.file_browser.install(telescope),
-    }
+    for _, value in pairs(additional_extensions) do
+      value.install(telescope)
+    end
 
     telescope.setup {
-      extensions = {
+      extensions = vim.tbl_extend('force', {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
         },
-        file_browser = addtional_extensions_result.file_browser.extensions.file_browser,
-      },
+      }, additional_extensions),
     }
 
     load_keybindings(builtin)
