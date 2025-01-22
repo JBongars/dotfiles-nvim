@@ -14,8 +14,24 @@ return {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
+    event_handlers = {
+      -- https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipes#auto-close-on-open-file
+      {
+        event = 'file_open_requested',
+        handler = function()
+          print 'opening file...'
+          -- auto close
+          -- vim.cmd("Neotree close")
+          -- OR
+          require('neo-tree.command').execute { action = 'close' }
+        end,
+      },
+    },
     filesystem = {
       window = {
+        position = 'left',
+        auto_close = true,
+        width = 60,
         mappings = {
           ['\\'] = 'close_window',
         },
