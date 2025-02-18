@@ -19,7 +19,6 @@ return {
       {
         event = 'file_open_requested',
         handler = function()
-          print 'opening file...'
           -- auto close
           -- vim.cmd("Neotree close")
           -- OR
@@ -29,7 +28,7 @@ return {
     },
     filesystem = {
       window = {
-        position = 'left',
+        position = 'right',
         auto_close = true,
         width = 60,
         mappings = {
