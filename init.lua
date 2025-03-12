@@ -68,7 +68,7 @@ require('lazy').setup({
   require 'plugins.lsp',
   require 'plugins.typescript-tools',
 
-  require 'plugins.autoformat',
+  require 'plugins.autoformatter',
   require 'plugins.autocomplete',
   require 'plugins.todo-comments',
   require 'plugins.mini',
