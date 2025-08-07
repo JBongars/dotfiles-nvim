@@ -39,7 +39,7 @@ vim.opt.scrolloff = 10
 require 'keybindings'
 
 require('lazy').setup({
-  require 'themes.catppuccin',
+  require 'themes.catppuccin-transparent',
   'tpope/vim-sleuth', -- detect tabstop and shiftwidth automatically
   require 'plugins.gitsigns',
   require 'plugins.whichkey',
