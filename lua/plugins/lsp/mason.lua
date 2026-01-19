@@ -8,7 +8,6 @@ return {
     require('mason').setup {
       ui = {
         check_outdated_packages_on_open = false,
-        -- Add this to see when it's triggered
         border = 'rounded',
       },
     }
@@ -18,7 +17,6 @@ return {
     }
 
     require('mason-lspconfig').setup {
-
       handlers = {
         function(server_name)
           local ok, server = pcall(require, 'plugins.lsp.servers.' .. server_name)
@@ -26,13 +24,10 @@ return {
             server = {}
           end
 
-          capabilities = {}
+          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities or {}, server.capabilities or {})
 
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for ts_ls)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
+          vim.lsp.config(server_name, server)
+          vim.lsp.enable(server_name)
         end,
       },
     }

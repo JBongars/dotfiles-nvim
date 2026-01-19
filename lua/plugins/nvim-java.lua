@@ -6,14 +6,9 @@ return {
     local java17_path = '/usr/local/bin/java17'
     local java_home = vim.fn.expand '$JAVA_HOME'
     local java17_exists = vim.fn.executable(java17_path) == 1
-
-    -- Set JAVA_HOME environment variable for the Neovim process
     if java17_exists then
-      -- If java17 exists, set JAVA_HOME to its parent directory
       vim.env.JAVA_HOME = vim.fn.fnamemodify(java17_path, ':h:h')
     end
-
-    -- Set JDTLS specific Java home
     local javaobj = {
       {
         name = java17_exists and 'Java17' or 'JAVA_HOME',
@@ -21,10 +16,8 @@ return {
         default = true,
       },
     }
-
-    require('lspconfig').jdtls.setup {
+    local config = {
       cmd = {
-        -- Explicitly tell jdtls which Java to use
         'java',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
@@ -56,5 +49,7 @@ return {
         },
       },
     }
+    vim.lsp.config('jdtls', config)
+    vim.lsp.enable 'jdtls'
   end,
 }
