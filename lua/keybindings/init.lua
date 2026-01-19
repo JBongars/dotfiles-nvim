@@ -64,5 +64,8 @@ for i = 1, 10 do
   vim.keymap.set('n', '<C-w>' .. string.rep('J', i), 10 * i .. '<C-w>-', { silent = true })
 end
 
+-- <C-w>-w should close the buffer but not the window
+vim.keymap.set('n', '<C-w>bd', ':bp | bd #<CR>', { noremap = true, silent = true })
+
 -- Fold logic
 vim.keymap.set('n', 'zC', ':g/{/normal zf%<CR>', { noremap = true, silent = true })

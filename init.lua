@@ -1,7 +1,3 @@
-require 'before'
-
--- Set <space> as the leader key
--- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -62,6 +58,7 @@ require('lazy').setup({
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
+  { 'wsdjeg/vim-fetch' }, --jump to file with gF
 
   -- java plugin should be loaded before LSP
   require('plugins.nvim-java').config,
