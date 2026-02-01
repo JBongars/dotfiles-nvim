@@ -31,6 +31,10 @@ vim.opt.splitbelow = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+-- remove files containing ':' from isframe to allow querying file:linenumber using gF
+-- This is because ':' is a legal character for filename on MacOS
+vim.opt.isfname:remove ':'
+
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
