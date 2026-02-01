@@ -12,7 +12,8 @@ return {
 
     require('ufo').setup {
       provider_selector = function()
-        return { 'lsp', 'indent' }
+        -- return { 'lsp', 'indent' }
+        return { 'treesitter', 'indent' }
       end,
     }
 
@@ -42,6 +43,17 @@ return {
       if not winid then
         vim.lsp.buf.hover()
       end
+    end)
+
+    -- Open/close to specific levels
+    vim.keymap.set('n', 'zc1', function()
+      require('ufo').closeFoldsWith(1)
+    end)
+    vim.keymap.set('n', 'zc2', function()
+      require('ufo').closeFoldsWith(2)
+    end)
+    vim.keymap.set('n', 'zc3', function()
+      require('ufo').closeFoldsWith(3)
     end)
   end,
 }

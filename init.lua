@@ -67,6 +67,7 @@ require('lazy').setup({
   },
   { 'Bilal2453/luvit-meta', lazy = true },
   { 'wsdjeg/vim-fetch' }, --jump to file with gF
+  { 'bullets-vim/bullets.vim' }, --bullests variaous for markdown
 
   -- java plugin should be loaded before LSP
   require('plugins.nvim-java').config,
@@ -89,6 +90,9 @@ require('lazy').setup({
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+
+  -- custom plugins
+  require 'plugins.markdown-paste-image',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
