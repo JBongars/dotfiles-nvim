@@ -16,6 +16,7 @@ return { -- Highlight, edit, and navigate code
       'query',
       'vim',
       'vimdoc',
+      'sql',
       'dockerfile',
       'powershell',
     },
