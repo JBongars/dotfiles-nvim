@@ -82,6 +82,7 @@ require('lazy').setup({
   require 'plugins.nvim-ufo',
   require('plugins.lint').lint,
   require 'plugins.conform',
+  require 'plugins.markdown-preview',
   require 'plugins.ansicolorize',
 
   require 'kickstart.plugins.debug',
