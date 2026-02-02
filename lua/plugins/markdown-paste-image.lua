@@ -3,37 +3,41 @@ return {
   name = 'paste-image',
   ft = 'markdown',
   config = function()
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'markdown',
-      callback = function()
-        vim.keymap.set('n', '<leader>pi', function()
-          local media_dir = vim.fn.expand '%:p:h' .. '/.media'
-          vim.fn.mkdir(media_dir, 'p')
+    vim.api.nvim_create_user_command('PasteImage', function()
+      local media_dir = '.media'
+      vim.fn.mkdir(media_dir, 'p')
+      local filename = os.date '%Y%m%d%H%M%S' .. '.png'
+      local filepath = media_dir .. '/' .. filename
 
-          local filename = os.date '%Y%m%d%H%M%S' .. '-image.png'
-          local filepath = media_dir .. '/' .. filename
+      -- Check if WAYLAND_DISPLAY is actually set and wl-paste exists
+      local wayland_display = vim.fn.getenv 'WAYLAND_DISPLAY'
+      local has_wl_paste = vim.fn.executable 'wl-paste' == 1
+      local cmd
 
-          local base64 = vim.fn.getreg '+'
-          base64 = base64:gsub('^data:image/[^;]+;base64,', '')
-          base64 = base64:gsub('%s+', '')
+      if wayland_display ~= vim.NIL and wayland_display ~= '' and has_wl_paste then
+        cmd = string.format('wl-paste > %s', filepath)
+      else
+        cmd = string.format('xclip -selection clipboard -o > %s', filepath)
+      end
 
-          local handle = io.popen('base64 -d > ' .. vim.fn.shellescape(filepath), 'w')
-          handle:write(base64)
-          handle:close()
+      vim.fn.system(cmd)
 
-          -- Insert at cursor position
-          local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-          local line = vim.api.nvim_get_current_line()
-          local before = line:sub(1, col)
-          local after = line:sub(col + 1)
-          local link = '![](.media/' .. filename .. ')'
+      local size = vim.fn.getfsize(filepath)
+      if size <= 0 then
+        vim.notify('Failed to paste image - clipboard is empty', vim.log.levels.ERROR)
+        return
+      end
 
-          vim.api.nvim_set_current_line(before .. link .. after)
-          -- Position cursor inside [] and enter insert mode
-          vim.api.nvim_win_set_cursor(0, { row, col + 2 })
-          vim.cmd 'startinsert'
-        end, { buffer = true, desc = 'Paste base64 image' })
-      end,
-    })
+      -- Verify it's actually an image using the 'file' command
+      local file_type = vim.fn.system('file -b --mime-type ' .. vim.fn.shellescape(filepath)):gsub('%s+', '')
+      if not file_type:match '^image/' then
+        vim.fn.delete(filepath)
+        vim.notify('Clipboard does not contain an image (found: ' .. file_type .. ')', vim.log.levels.ERROR)
+        return
+      end
+
+      local link = string.format('![](%s)', filepath)
+      vim.api.nvim_put({ link }, 'c', true, true)
+    end, {})
   end,
 }
