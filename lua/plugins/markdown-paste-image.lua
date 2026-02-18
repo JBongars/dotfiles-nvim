@@ -48,6 +48,11 @@ return {
     vim.api.nvim_create_user_command('PasteImage', function()
       local media_dir = '.media'
       vim.fn.mkdir(media_dir, 'p')
+      if vim.fn.isdirectory(media_dir) == 0 then
+        vim.notify('Failed to create media path. Create manually and try again.', vim.log.levels.ERROR)
+        return
+      end
+
       local filename = os.date '%Y%m%d%H%M%S' .. '.png'
       local filepath = media_dir .. '/' .. filename
 
