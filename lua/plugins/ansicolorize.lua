@@ -1,6 +1,6 @@
 return {
   'm00qek/baleia.nvim',
-  version = '*',
+  branch = 'main',
   config = function()
     vim.g.baleia = require('baleia').setup {
       strip_ansi_codes = true,
